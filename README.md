@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ⚡ TaskFlow — Produtividade Inteligente
 
 Sistema completo de produtividade com **Node.js backend** e **frontend HTML/CSS/JS** puro.
@@ -142,3 +143,7 @@ Para usar em produção, substitua o banco de dados em memória (`models/databas
 ---
 
 Feito com ⚡ por TaskFlow
+=======
+# To-do-list-claude
+CLaude to do list
+>>>>>>> e8c9bd01915a3e63c8af394373ec82e2235dfbe3
