@@ -1,0 +1,110 @@
+/* ============================================================
+   TASKFLOW — ANIMATIONS
+   ============================================================ */
+
+/* Fade in up */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up { animation: fadeInUp 0.4s ease forwards; }
+
+/* Stagger children */
+.stagger > * {
+  opacity: 0; animation: fadeInUp 0.4s ease forwards;
+}
+.stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger > *:nth-child(6) { animation-delay: 0.3s; }
+.stagger > *:nth-child(7) { animation-delay: 0.35s; }
+.stagger > *:nth-child(8) { animation-delay: 0.4s; }
+
+/* Scale in */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+.scale-in { animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* Pulse */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.pulse { animation: pulse 2s ease-in-out infinite; }
+
+/* Shake (for errors) */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+.shake { animation: shake 0.5s ease; }
+
+/* Bounce in */
+@keyframes bounceIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.bounce-in { animation: bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* Glow pulse */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(99, 102, 241, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.5); }
+}
+.glow-pulse { animation: glowPulse 2s ease-in-out infinite; }
+
+/* Number count up (via JS) */
+.count-up { transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Slide in from right */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.slide-in-right { animation: slideInRight 0.3s ease; }
+
+/* Check mark animation */
+@keyframes checkMark {
+  0% { transform: scale(0) rotate(-30deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+.check-anim { animation: checkMark 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* Floating label */
+.floating-label { position: relative; }
+.floating-label input { padding-top: 20px; }
+.floating-label label {
+  position: absolute; left: 14px; top: 12px;
+  font-size: 14px; color: var(--text-muted);
+  transition: all 0.2s ease; pointer-events: none;
+}
+.floating-label input:focus + label,
+.floating-label input:not(:placeholder-shown) + label {
+  top: 4px; font-size: 11px; color: var(--accent);
+}
+
+/* Ripple effect */
+.ripple {
+  position: relative; overflow: hidden;
+}
+.ripple::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%; width: 0; height: 0;
+  transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+  transform: translate(-50%, -50%); opacity: 0;
+}
+.ripple:active::after {
+  width: 300px; height: 300px; opacity: 1;
+}
+
+/* Transition utilities */
+.transition-all { transition: all var(--transition); }
+.transition-transform { transition: transform var(--transition); }

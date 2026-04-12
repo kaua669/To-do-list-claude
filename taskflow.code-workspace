@@ -1,0 +1,66 @@
+{
+  "folders": [
+    {
+      "name": "⚡ TaskFlow",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.fontSize": 14,
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.wordWrap": "on",
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "workbench.colorTheme": "Default Dark Modern",
+    "editor.minimap.enabled": false,
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "liveServer.settings.port": 5500,
+    "liveServer.settings.donotShowInfoMsg": true
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "🚀 Iniciar Backend",
+        "program": "${workspaceFolder}/backend/server.js",
+        "cwd": "${workspaceFolder}/backend",
+        "env": {
+          "NODE_ENV": "development"
+        }
+      }
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "📦 Instalar Dependências",
+        "type": "shell",
+        "command": "npm install",
+        "options": { "cwd": "${workspaceFolder}/backend" },
+        "group": "build"
+      },
+      {
+        "label": "🚀 Rodar Backend (dev)",
+        "type": "shell",
+        "command": "npm run dev",
+        "options": { "cwd": "${workspaceFolder}/backend" },
+        "group": { "kind": "build", "isDefault": true },
+        "isBackground": true,
+        "problemMatcher": []
+      }
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      "ritwickdey.liveserver",
+      "esbenp.prettier-vscode",
+      "ms-vscode.vscode-typescript-next",
+      "formulahendry.auto-rename-tag",
+      "christian-kohler.path-intellisense"
+    ]
+  }
+}
