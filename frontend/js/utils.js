@@ -52,6 +52,10 @@ const Utils = {
 
   // Category label
   categoryLabel(c) {
+    // Se CategoryManager estiver disponível, usa ele (inclui categorias personalizadas)
+    if (typeof CategoryManager !== 'undefined') {
+      return CategoryManager.getLabel(c);
+    }
     const map = {
       trabalho: '💼 Trabalho', pessoal: '🏠 Pessoal',
       saude: '❤️ Saúde', estudo: '📚 Estudo',

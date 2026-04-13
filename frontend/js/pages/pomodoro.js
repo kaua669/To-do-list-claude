@@ -33,9 +33,9 @@ const PomodoroPage = {
       <div class="pomodoro-wrap fade-in-up">
         <!-- TYPE TABS -->
         <div class="pomodoro-type-tabs">
-          <button class="pomo-tab ${this.mode==='work'?'active':''}" onclick="PomodoroPage.setMode('work')">🍅 Foco</button>
-          <button class="pomo-tab ${this.mode==='short'?'active':''}" onclick="PomodoroPage.setMode('short')">☕ Pausa Curta</button>
-          <button class="pomo-tab ${this.mode==='long'?'active':''}" onclick="PomodoroPage.setMode('long')">🌴 Pausa Longa</button>
+          <button class="pomo-tab ${this.mode==='work'?'active':''}" onclick="PomodoroPage.setMode('work')">Foco</button>
+          <button class="pomo-tab ${this.mode==='short'?'active':''}" onclick="PomodoroPage.setMode('short')">Pausa Curta</button>
+          <button class="pomo-tab ${this.mode==='long'?'active':''}" onclick="PomodoroPage.setMode('long')">Pausa Longa</button>
         </div>
 
         <!-- TIMER RING -->
@@ -84,7 +84,7 @@ const PomodoroPage = {
 
         <!-- TIP -->
         <div class="card" style="margin-top:20px;text-align:center;border-style:dashed">
-          <div style="font-size:20px;margin-bottom:6px">💡</div>
+          <div style="font-size:20px;margin-bottom:6px">Lembre-se:</div>
           <div style="font-size:13px;color:var(--text-secondary)">${this.getTip()}</div>
         </div>
       </div>

@@ -48,7 +48,7 @@ const HabitsPage = {
       <!-- HABITS GRID -->
       ${this.habits.length === 0 ? `
         <div class="empty-state">
-          <div class="empty-icon">🔥</div>
+          <div class="empty-icon"></div>
           <h3>Nenhum hábito cadastrado</h3>
           <p>Crie hábitos saudáveis e acompanhe seu progresso diário</p>
           <button class="btn-primary" style="margin-top:16px" onclick="HabitsPage.openCreateModal()">Criar primeiro hábito</button>
@@ -165,7 +165,7 @@ const HabitsPage = {
         </div>
         <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px">
           <button class="btn-secondary" onclick="Utils.closeModal()">Cancelar</button>
-          <button class="btn-primary" onclick="HabitsPage.saveHabit()">✨ Criar Hábito</button>
+          <button class="btn-primary" onclick="HabitsPage.saveHabit()"> Criar Hábito</button>
         </div>
       </div>
     `);

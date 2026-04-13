@@ -82,10 +82,10 @@ const ProfilePage = {
             <!-- Quick stats -->
             <div style="width:100%;display:flex;flex-direction:column;gap:8px">
               ${[
-                ['📋 Tarefas totais', stats.totalTasks],
-                ['📅 Eventos criados', stats.totalEvents],
-                ['📝 Notas', stats.totalNotes],
-                ['🔥 Hábitos ativos', stats.totalHabits]
+                ['Tarefas totais', stats.totalTasks],
+                ['Eventos criados', stats.totalEvents],
+                [' Notas', stats.totalNotes],
+                ['Hábitos ativos', stats.totalHabits]
               ].map(([l,v]) => `
                 <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">
                   <span style="color:var(--text-secondary)">${l}</span>
@@ -101,7 +101,7 @@ const ProfilePage = {
         <div class="profile-right">
           <!-- Edit Profile -->
           <div class="profile-section">
-            <h3>✏️ Editar Perfil</h3>
+            <h3>Editar Perfil</h3>
             <div style="display:flex;flex-direction:column;gap:14px">
               <div class="form-row">
                 <div class="form-group">
@@ -122,14 +122,14 @@ const ProfilePage = {
                 <input id="pf-location" value="${Utils.esc(user.location||'')}" placeholder="Cidade, Estado" />
               </div>
               <div style="display:flex;justify-content:flex-end">
-                <button class="btn-primary" onclick="ProfilePage.saveProfile()">💾 Salvar Alterações</button>
+                <button class="btn-primary" onclick="ProfilePage.saveProfile()">Salvar Alterações</button>
               </div>
             </div>
           </div>
 
           <!-- Change Password -->
           <div class="profile-section">
-            <h3>🔒 Alterar Senha</h3>
+            <h3>Alterar Senha</h3>
             <div style="display:flex;flex-direction:column;gap:14px">
               <div class="form-group">
                 <label>Senha Atual</label>
@@ -146,14 +146,14 @@ const ProfilePage = {
                 </div>
               </div>
               <div style="display:flex;justify-content:flex-end">
-                <button class="btn-primary" onclick="ProfilePage.changePassword()">🔑 Alterar Senha</button>
+                <button class="btn-primary" onclick="ProfilePage.changePassword()">Alterar Senha</button>
               </div>
             </div>
           </div>
 
           <!-- Achievements -->
           <div class="profile-section">
-            <h3>🏆 Conquistas</h3>
+            <h3>Conquistas</h3>
             <div class="achievement-grid">
               ${achievements.map(a => `
                 <div class="achievement ${a.unlocked ? 'unlocked' : 'locked'}">
@@ -216,16 +216,17 @@ const ProfilePage = {
         <div class="form-group">
           <label>URL da Imagem</label>
           <input id="avatar-url" placeholder="https://exemplo.com/foto.jpg" />
+        
         </div>
         <div id="avatar-preview" style="display:none;text-align:center">
           <img style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)" />
         </div>
         <button class="btn-secondary" onclick="document.getElementById('avatar-preview').style.display='block';document.getElementById('avatar-preview').querySelector('img').src=document.getElementById('avatar-url').value">
-          👁️ Pré-visualizar
+          Pré-visualizar
         </button>
         <div style="display:flex;gap:10px;justify-content:flex-end">
           <button class="btn-secondary" onclick="Utils.closeModal()">Cancelar</button>
-          <button class="btn-primary" onclick="ProfilePage.saveAvatar()">💾 Salvar</button>
+          <button class="btn-primary" onclick="ProfilePage.saveAvatar()">Salvar</button>
         </div>
       </div>
     `);

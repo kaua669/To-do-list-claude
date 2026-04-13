@@ -35,7 +35,7 @@ const NotesPage = {
 
       ${this.notes.length === 0 ? `
         <div class="empty-state">
-          <div class="empty-icon">📝</div>
+          <div class="empty-icon"></div>
           <h3>Nenhuma nota encontrada</h3>
           <p>Crie sua primeira nota para guardar ideias e anotações importantes</p>
         </div>
@@ -125,7 +125,7 @@ const NotesPage = {
         <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px">
           <button class="btn-secondary" onclick="Utils.closeModal()">Cancelar</button>
           <button class="btn-primary" onclick="NotesPage.saveNote('${n.id||''}')">
-            ${n.id ? '💾 Salvar' : '✨ Criar Nota'}
+            ${n.id ? ' Salvar' : 'Criar Nota'}
           </button>
         </div>
       </div>`;

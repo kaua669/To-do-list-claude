@@ -9,12 +9,12 @@ const ToolsPage = {
     const content = document.getElementById('page-content');
     content.innerHTML = `
       <div class="tools-grid stagger">
-        ${this.toolCard('🍅', 'Pomodoro Timer', 'Técnica de gerenciamento de tempo com intervalos focados de trabalho.', 'pomodoro')}
-        ${this.toolCard('🗺️', 'Matriz de Eisenhower', 'Priorize tarefas por urgência e importância para focar no que realmente importa.', 'matrix')}
-        ${this.toolCard('📊', 'Análise de Produtividade', 'Veja gráficos e estatísticas detalhadas sobre seu desempenho.', 'analytics')}
-        ${this.toolCard('🎯', 'Metas SMART', 'Defina metas específicas, mensuráveis, atingíveis, relevantes e com prazo.', 'smart')}
-        ${this.toolCard('⏱️', 'Cronômetro', 'Cronometre suas atividades com precisão.', 'stopwatch')}
-        ${this.toolCard('🧮', 'Calculadora de Foco', 'Calcule quantas sessões você precisa para concluir uma tarefa.', 'calc')}
+        ${this.toolCard('', 'Pomodoro Timer', 'Técnica de gerenciamento de tempo com intervalos focados de trabalho.', 'pomodoro')}
+        ${this.toolCard('', 'Matriz de Eisenhower', 'Priorize tarefas por urgência e importância para focar no que realmente importa.', 'matrix')}
+        ${this.toolCard('', 'Análise de Produtividade', 'Veja gráficos e estatísticas detalhadas sobre seu desempenho.', 'analytics')}
+        ${this.toolCard('', 'Metas SMART', 'Defina metas específicas, mensuráveis, atingíveis, relevantes e com prazo.', 'smart')}
+        ${this.toolCard('', 'Cronômetro', 'Cronometre suas atividades com precisão.', 'stopwatch')}
+        ${this.toolCard('', 'Calculadora de Foco', 'Calcule quantas sessões você precisa para concluir uma tarefa.', 'calc')}
       </div>
 
       <div id="tool-panel" style="margin-top:24px"></div>
@@ -63,7 +63,7 @@ const ToolsPage = {
 
     panel.innerHTML = `
       <div class="card">
-        <div class="section-title" style="margin-bottom:16px">🗺️ Matriz de Eisenhower</div>
+        <div class="section-title" style="margin-bottom:16px">Matriz de Eisenhower</div>
         <div class="matrix-grid">
           ${quadrants.map(q => `
             <div class="matrix-cell" style="background:${q.bg};border-color:${q.border}">
@@ -87,7 +87,7 @@ const ToolsPage = {
 
     panel.innerHTML = `
       <div class="card">
-        <div class="section-title" style="margin-bottom:20px">📊 Análise de Produtividade</div>
+        <div class="section-title" style="margin-bottom:20px">Análise de Produtividade</div>
         <div class="grid-4" style="margin-bottom:20px">
           ${[
             ['Taxa de Conclusão', overview.completionRate + '%', 'var(--accent)'],
@@ -121,7 +121,7 @@ const ToolsPage = {
   renderSmart(panel) {
     panel.innerHTML = `
       <div class="card">
-        <div class="section-title" style="margin-bottom:16px">🎯 Criar Meta SMART</div>
+        <div class="section-title" style="margin-bottom:16px">Criar Meta SMART</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
           ${[
             ['S — Específica', 'O que exatamente você quer alcançar?', 'smart-s'],
@@ -152,7 +152,7 @@ const ToolsPage = {
     const result = document.getElementById('smart-result');
     result.innerHTML = `
       <div style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.3);border-radius:var(--radius-md);padding:18px">
-        <div style="font-weight:700;margin-bottom:10px;color:var(--accent)">📋 Sua Meta SMART:</div>
+        <div style="font-weight:700;margin-bottom:10px;color:var(--accent)">Sua Meta SMART:</div>
         <p style="font-size:14px;line-height:1.6;color:var(--text-primary)">
           <strong>${s}</strong>${m ? `, medido por ${m}` : ''}${a ? `, de forma ${a}` : ''}${r ? `, porque ${r}` : ''}${t ? `, até ${t}` : ''}.
         </p>
@@ -176,7 +176,7 @@ const ToolsPage = {
 
     panel.innerHTML = `
       <div class="card" style="text-align:center;max-width:400px;margin:0 auto">
-        <div class="section-title" style="margin-bottom:20px">⏱️ Cronômetro</div>
+        <div class="section-title" style="margin-bottom:20px">Cronômetro</div>
         <div id="sw-display" style="font-family:var(--font-display);font-size:52px;font-weight:800;margin-bottom:20px;letter-spacing:0.05em">00:00.00</div>
         <div style="display:flex;gap:10px;justify-content:center;margin-bottom:16px">
           <button class="btn-primary" id="sw-btn" onclick="ToolsPage.swToggle()">▶ Iniciar</button>
@@ -192,7 +192,7 @@ const ToolsPage = {
   renderCalc(panel) {
     panel.innerHTML = `
       <div class="card" style="max-width:400px;margin:0 auto">
-        <div class="section-title" style="margin-bottom:16px">🧮 Calculadora de Sessões</div>
+        <div class="section-title" style="margin-bottom:16px">Calculadora de Sessões</div>
         <div style="display:flex;flex-direction:column;gap:14px">
           <div class="form-group">
             <label>Tempo estimado da tarefa (horas)</label>

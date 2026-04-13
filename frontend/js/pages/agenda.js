@@ -51,7 +51,7 @@ const AgendaPage = {
 
         <!-- Events sidebar -->
         <div class="events-sidebar-panel">
-          <h3>📅 ${this.selectedDate ? new Date(this.selectedDate + 'T12:00:00').toLocaleDateString('pt-BR', {weekday:'long',day:'numeric',month:'long'}) : 'Selecione um dia'}</h3>
+          <h3> ${this.selectedDate ? new Date(this.selectedDate + 'T12:00:00').toLocaleDateString('pt-BR', {weekday:'long',day:'numeric',month:'long'}) : 'Selecione um dia'}</h3>
           <div id="day-events">
             ${this.renderDayEvents(this.selectedDate)}
           </div>
@@ -105,7 +105,7 @@ const AgendaPage = {
     const dayEvents = this.events.filter(e => e.date === dateStr);
     if (dayEvents.length === 0) {
       return `<div style="text-align:center;padding:30px;color:var(--text-muted)">
-        <div style="font-size:32px;margin-bottom:8px">🌟</div>
+        <div style="font-size:32px;margin-bottom:8px"></div>
         <p style="font-size:14px">Nenhum evento neste dia</p>
         <button class="btn-secondary btn-sm" style="margin-top:12px" onclick="AgendaPage.openEventModal('${dateStr||''}')">+ Adicionar</button>
       </div>`;
@@ -176,11 +176,11 @@ const AgendaPage = {
           <div class="form-group">
             <label>Tipo</label>
             <select id="ev-type">
-              <option value="pessoal" ${e.type==='pessoal'?'selected':''}>🏠 Pessoal</option>
-              <option value="trabalho" ${e.type==='trabalho'?'selected':''}>💼 Trabalho</option>
-              <option value="reuniao" ${e.type==='reuniao'?'selected':''}>👥 Reunião</option>
-              <option value="saude" ${e.type==='saude'?'selected':''}>❤️ Saúde</option>
-              <option value="outro" ${e.type==='outro'?'selected':''}>📌 Outro</option>
+              <option value="pessoal" ${e.type==='pessoal'?'selected':''}> Pessoal</option>
+              <option value="trabalho" ${e.type==='trabalho'?'selected':''}> Trabalho</option>
+              <option value="reuniao" ${e.type==='reuniao'?'selected':''}> Reunião</option>
+              <option value="saude" ${e.type==='saude'?'selected':''}> Saúde</option>
+              <option value="outro" ${e.type==='outro'?'selected':''}> Outro</option>
             </select>
           </div>
           <div class="form-group">
@@ -207,7 +207,7 @@ const AgendaPage = {
         <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px">
           <button class="btn-secondary" onclick="Utils.closeModal()">Cancelar</button>
           <button class="btn-primary" onclick="AgendaPage.saveEvent('${e.id||''}')">
-            ${e.id ? '💾 Salvar' : '✨ Criar Evento'}
+            ${e.id ? ' Salvar' : 'Criar Evento'}
           </button>
         </div>
       </div>`;

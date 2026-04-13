@@ -52,12 +52,14 @@ const TasksPage = {
           </select>
           <select onchange="TasksPage.setFilter('category',this.value)" style="width:auto;padding:8px 12px">
             <option value="">Categoria</option>
-            <option value="trabalho">💼 Trabalho</option>
-            <option value="pessoal">🏠 Pessoal</option>
-            <option value="saude">❤️ Saúde</option>
-            <option value="estudo">📚 Estudo</option>
-            <option value="financeiro">💰 Finanças</option>
-            <option value="outros">📌 Outros</option>
+            ${typeof CategoryManager !== 'undefined'
+              ? CategoryManager.getAll().map(c => `<option value="${c.value}" ${this.filters.category===c.value?'selected':''}>${c.icon} ${c.label}</option>`).join('')
+              : `<option value="trabalho">💼 Trabalho</option>
+                 <option value="pessoal">🏠 Pessoal</option>
+                 <option value="saude">❤️ Saúde</option>
+                 <option value="estudo">📚 Estudo</option>
+                 <option value="financeiro">💰 Finanças</option>
+                 <option value="outros">📌 Outros</option>`}
           </select>
         </div>
         <div style="display:flex;gap:8px">
@@ -76,7 +78,7 @@ const TasksPage = {
 
   renderList() {
     if (this.tasks.length === 0) {
-      return `<div class="empty-state"><div class="empty-icon">📋</div><h3>Nenhuma tarefa encontrada</h3><p>Crie sua primeira tarefa clicando em "+ Nova Tarefa"</p></div>`;
+      return `<div class="empty-state"><div class="empty-icon"></div><h3>Nenhuma tarefa encontrada</h3><p>Crie sua primeira tarefa clicando em "+ Nova Tarefa"</p></div>`;
     }
     return `<div class="stagger">${this.tasks.map(t => this.taskCard(t)).join('')}</div>`;
   },
@@ -207,14 +209,21 @@ const TasksPage = {
             </select>
           </div>
           <div class="form-group">
-            <label>Categoria</label>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+              <label style="margin-bottom:0">Categoria</label>
+              <button type="button" onclick="CategoryManager.openModal(()=>{const s=document.getElementById('tf-category');if(s){const cur=s.value;s.innerHTML=CategoryManager.renderOptions(cur);}})"
+                style="background:none;border:none;color:var(--accent);font-size:11px;cursor:pointer;font-family:var(--font-body);padding:0;font-weight:600">
+                + Nova categoria
+              </button>
+            </div>
             <select id="tf-category">
+              ${typeof CategoryManager !== 'undefined' ? CategoryManager.renderOptions(t.category||'pessoal') : `
               <option value="pessoal" ${t.category==='pessoal'?'selected':''}>🏠 Pessoal</option>
               <option value="trabalho" ${t.category==='trabalho'?'selected':''}>💼 Trabalho</option>
               <option value="saude" ${t.category==='saude'?'selected':''}>❤️ Saúde</option>
               <option value="estudo" ${t.category==='estudo'?'selected':''}>📚 Estudo</option>
               <option value="financeiro" ${t.category==='financeiro'?'selected':''}>💰 Finanças</option>
-              <option value="outros" ${t.category==='outros'?'selected':''}>📌 Outros</option>
+              <option value="outros" ${t.category==='outros'?'selected':''}>📌 Outros</option>`}
             </select>
           </div>
         </div>
@@ -253,7 +262,7 @@ const TasksPage = {
         <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px">
           <button class="btn-secondary" onclick="Utils.closeModal()">Cancelar</button>
           <button class="btn-primary" onclick="TasksPage.saveTask('${t.id||''}')">
-            ${t.id ? '💾 Salvar' : '✨ Criar Tarefa'}
+            ${t.id ? ' Salvar' : 'Criar Tarefa'}
           </button>
         </div>
       </div>`;

@@ -135,14 +135,14 @@ const App = {
 
     // Update title
     const titles = {
-      dashboard: '🏠 Dashboard',
-      tasks: '📋 Tarefas',
-      agenda: '📅 Agenda',
-      notes: '📝 Notas',
-      habits: '🔥 Hábitos',
-      pomodoro: '🍅 Pomodoro',
-      tools: '🔧 Ferramentas',
-      profile: '👤 Perfil'
+      dashboard: 'Dashboard',
+      tasks: 'Tarefas',
+      agenda: 'Agenda',
+      notes: 'Notas',
+      habits: 'Hábitos',
+      pomodoro: 'Pomodoro',
+      tools: 'Ferramentas',
+      profile: 'Perfil'
     };
     document.getElementById('page-title').textContent = titles[page] || page;
 
