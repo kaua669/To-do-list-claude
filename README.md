@@ -1,149 +1,155 @@
-<<<<<<< HEAD
-# ⚡ TaskFlow — Produtividade Inteligente
+# TaskFlow — Guia de Implementação PWA + Fix Backend
 
-Sistema completo de produtividade com **Node.js backend** e **frontend HTML/CSS/JS** puro.
+## 📱 Tornando o App Instalável pelo Chrome (PWA)
+
+### Arquivos para adicionar ao projeto
+
+Copie os seguintes arquivos para a pasta `frontend/`:
+
+```
+frontend/
+├── index.html          ← SUBSTITUIR pelo novo (com PWA + nav mobile)
+├── manifest.json       ← NOVO
+├── sw.js               ← NOVO (Service Worker)
+├── css/
+│   └── mobile.css      ← NOVO (layout mobile + bottom nav)
+└── icons/
+    ├── icon-192.png    ← NOVO (ícone 192×192)
+    └── icon-512.png    ← NOVO (ícone 512×512)
+```
+
+### Como funciona
+
+1. O `manifest.json` declara o app como instalável
+2. O `sw.js` (Service Worker) faz cache dos arquivos para uso offline
+3. O `mobile.css` adapta o layout: esconde a sidebar e adiciona bottom navigation no mobile
+4. O `index.html` atualizado inclui as meta tags PWA e a barra de navegação inferior
+
+### Como instalar pelo Chrome (usuário)
+
+1. Acesse o site pelo Chrome no Android ou Chrome desktop
+2. Chrome mostrará um banner "Adicionar à tela inicial" ou ícone de instalação (⊕) na barra de endereço
+3. Toque em "Instalar" — o app abre em tela cheia como um aplicativo nativo
 
 ---
 
-## 📁 Estrutura do Projeto
+## 🔴 Por que os dados somem no Render? — Explicação e solução
 
-```
-taskflow/
-├── backend/                  ← API Node.js
-│   ├── server.js             ← Servidor Express principal
-│   ├── package.json
-│   ├── .env
-│   ├── models/
-│   │   └── database.js       ← Banco de dados em memória
-│   ├── middleware/
-│   │   └── auth.js           ← Autenticação JWT
-│   └── routes/
-│       ├── auth.js           ← Login / Registro
-│       ├── tasks.js          ← Tarefas
-│       ├── agenda.js         ← Eventos do calendário
-│       ├── notes.js          ← Notas
-│       ├── habits.js         ← Hábitos
-│       ├── profile.js        ← Perfil do usuário
-│       └── tools.js          ← Pomodoro / Estatísticas
-└── frontend/                 ← Interface Web
-    ├── index.html            ← Página principal
-    ├── css/
-    │   ├── main.css          ← Design system
-    │   ├── components.css    ← Componentes
-    │   └── animations.css    ← Animações
-    └── js/
-        ├── api.js            ← Cliente HTTP
-        ├── utils.js          ← Utilitários
-        ├── app.js            ← Controlador principal
-        └── pages/
-            ├── dashboard.js
-            ├── tasks.js
-            ├── agenda.js
-            ├── notes.js
-            ├── habits.js
-            ├── pomodoro.js
-            ├── tools.js
-            └── profile.js
-```
+### O problema
+
+O backend usa **SQLite** (`better-sqlite3`) com arquivo `taskflow.db` salvo em disco. 
+O Render, no **plano gratuito**, usa um **sistema de arquivos efêmero** — 
+ou seja, **toda vez que o serviço reinicia ou hiberna (após 15 min inativo), 
+o disco é zerado e o arquivo `.db` é apagado**.
+
+### Por que o Render faz isso
+
+No free tier do Render, os servidores "dormem" após 15 minutos sem requisição 
+e reiniciam ao receber uma nova request. Ao reiniciar, tudo que foi escrito 
+no disco (fora do repositório) se perde.
+
+### Soluções (escolha uma)
 
 ---
 
-## 🚀 Como Rodar
+#### ✅ Solução 1 — PostgreSQL no Render (RECOMENDADO, gratuito)
 
-### 1. Instalar dependências do backend
+O Render oferece um **PostgreSQL gratuito** que persiste os dados.
+
+**Passo 1:** No Render, crie um novo "PostgreSQL" database  
+**Passo 2:** Copie a connection string (DATABASE_URL)  
+**Passo 3:** No backend, substitua o SQLite pelo PostgreSQL:
 
 ```bash
-cd backend
-npm install
+npm install pg
+npm uninstall better-sqlite3
 ```
 
-### 2. Iniciar o backend
+**Passo 4:** Substitua `backend/db/database.js`:
 
-```bash
-# Modo desenvolvimento (com auto-reload):
-npm run dev
+```js
+const { Pool } = require('pg');
 
-# Modo produção:
-npm start
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+});
+
+async function query(text, params) {
+  const res = await pool.query(text, params);
+  return res;
+}
+
+async function initDatabase() {
+  await query(`
+    CREATE TABLE IF NOT EXISTS users (
+      id TEXT PRIMARY KEY,
+      username TEXT UNIQUE NOT NULL,
+      email TEXT UNIQUE NOT NULL,
+      password_hash TEXT NOT NULL,
+      display_name TEXT,
+      bio TEXT,
+      avatar_color TEXT DEFAULT '#6366f1',
+      avatar_emoji TEXT DEFAULT '✨',
+      theme TEXT DEFAULT 'dark',
+      accent_color TEXT DEFAULT '#6366f1',
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW()
+    );
+    -- (repita para as outras tabelas)
+  `);
+  console.log('✅ PostgreSQL inicializado');
+}
+
+module.exports = { query, initDatabase };
 ```
 
-O servidor rodará em: **http://localhost:3001**
-
-### 3. Abrir o frontend
-
-Abra o arquivo `frontend/index.html` diretamente no navegador.
-
-> 💡 **Dica:** Para evitar problemas de CORS ao abrir o HTML diretamente, use uma extensão como **Live Server** no VS Code.
+**Passo 5:** Adicione `DATABASE_URL` nas variáveis de ambiente do Render.
 
 ---
 
-## 🔑 Acesso Demo
+#### ✅ Solução 2 — MongoDB Atlas (gratuito, 512MB)
 
-Use o botão **"Entrar como Demo"** na tela de login para acessar sem cadastro.
-
-- **Email:** demo@taskflow.com
-- **Senha:** password
-
----
-
-## ✨ Funcionalidades
-
-| Área | Recursos |
-|------|----------|
-| **Dashboard** | Estatísticas, gráficos, atividade diária |
-| **Tarefas** | Criar, editar, filtrar, Kanban, subtarefas, prioridades |
-| **Agenda** | Calendário mensal, eventos coloridos, tipos |
-| **Notas** | Notas coloridas, fixar, busca, tags |
-| **Hábitos** | Streak diário, progresso, conquistas |
-| **Pomodoro** | Timer focado, pausas, sessões, histórico |
-| **Ferramentas** | Matriz Eisenhower, Análise, Metas SMART, Cronômetro, Calculadora |
-| **Perfil** | Editar dados, senha, avatar, conquistas, XP/Level |
+1. Crie conta em https://mongodb.com/atlas
+2. Crie um cluster gratuito (M0)
+3. Obtenha a connection string
+4. `npm install mongoose`
+5. Use `MONGODB_URI` como variável de ambiente no Render
 
 ---
 
-## ⌨️ Atalhos de Teclado
+#### ✅ Solução 3 — Render Disk (pago, $1/mês)
 
-| Tecla | Ação |
-|-------|------|
-| `Ctrl + 1` | Dashboard |
-| `Ctrl + 2` | Tarefas |
-| `Ctrl + 3` | Agenda |
-| `Ctrl + 4` | Notas |
-| `Ctrl + 5` | Hábitos |
-| `Ctrl + 6` | Pomodoro |
-| `Ctrl + 7` | Ferramentas |
-| `Ctrl + 8` | Perfil |
-| `Esc` | Fechar modal |
+No Render, adicione um **Persistent Disk** ao seu serviço:
+- Tamanho: 1GB (~$0.25/mês)
+- Mount path: `/data`
+- Mude o DB_PATH para `/data/taskflow.db`
+
+Isso mantém o SQLite funcionando sem trocar de banco.
 
 ---
 
-## 🔧 Tecnologias
+#### ⚡ Solução rápida temporária — Uptime Robot
 
-**Backend:**
-- Node.js + Express
-- JWT (autenticação)
-- bcryptjs (hash de senhas)
-- uuid (IDs únicos)
-- cors, dotenv
+Para evitar que o Render durma (causando perda de dados pelo restart):
+1. Acesse https://uptimerobot.com (gratuito)
+2. Crie um monitor HTTP para `https://seu-app.onrender.com/api/health`
+3. Intervalo: 14 minutos
+4. Isso mantém o servidor acordado e os dados no disco mais tempo
 
-**Frontend:**
-- HTML5 + CSS3 + JavaScript puro
-- Fontes: Syne + DM Sans (Google Fonts)
-- Design: Dark theme glassmorphism
+**Atenção:** Isso não é uma solução permanente — reinicializações ainda podem ocorrer.
+A solução correta é usar PostgreSQL (Solução 1).
 
 ---
 
-## 📦 Para Produção
+## 📋 Resumo dos arquivos
 
-Para usar em produção, substitua o banco de dados em memória (`models/database.js`) por:
-- **MongoDB** com Mongoose
-- **PostgreSQL** com Prisma ou pg
-- **SQLite** com better-sqlite3
-
----
-
-Feito com ⚡ por TaskFlow
-=======
-# To-do-list-claude
-CLaude to do list
->>>>>>> e8c9bd01915a3e63c8af394373ec82e2235dfbe3
+| Arquivo | Ação |
+|---|---|
+| `frontend/index.html` | Substituir pelo novo |
+| `frontend/manifest.json` | Criar novo |
+| `frontend/sw.js` | Criar novo |
+| `frontend/css/mobile.css` | Criar novo |
+| `frontend/icons/icon-192.png` | Criar (incluído) |
+| `frontend/icons/icon-512.png` | Criar (incluído) |
+| `backend/db/database.js` | Migrar para PostgreSQL |
