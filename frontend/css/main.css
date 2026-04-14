@@ -4,6 +4,31 @@
    Theme: Dark glassmorphism + electric accents
    ============================================================ */
 
+
+.tittle-names-jobs{
+  font-size: 13px;
+}   
+   .Nome-Autores{
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 500;
+   }
+.Nomes-representantes{
+  gap: 10px;
+ 
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.Nomes-representantes, p{
+  display: flex;
+  align-items: center;
+  color: #464646a4;
+}
+
+
+
 :root {
   --bg-base: #080c14;
   --bg-surface: #0e1420;
@@ -54,7 +79,7 @@ body {
   font-family: var(--font-body);
   background: var(--bg-base);
   color: var(--text-primary);
-  min-height: 100vh;
+  min-height: 110vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -113,8 +138,11 @@ body {
 }
 
 .auth-card {
-  position: relative; z-index: 1;
-  width: 420px; max-width: 94vw;
+ position: relative; z-index: 1;
+  width: 490px; max-width: 94vw;
+  height: auto;  
+  max-height: 92vh; 
+  overflow-y: auto;   
   background: var(--bg-glass);
   backdrop-filter: blur(20px);
   border: 1px solid var(--border);
