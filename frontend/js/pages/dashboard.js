@@ -59,7 +59,7 @@ const DashboardPage = {
     return `
       <div class="card">
         <div class="section-header">
-          <span class="section-title">🔥 Hábitos Hoje</span>
+          <span class="section-title">Hábitos Hoje</span>
           <button class="btn-secondary btn-sm" onclick="App.navigate('habits')">Ver todos</button>
         </div>
         <div style="text-align:center;padding:16px 0">
@@ -77,7 +77,7 @@ const DashboardPage = {
     return `
       <div class="card" id="bar-chart-card">
         <div class="section-header">
-          <span class="section-title">📊 Atividade (7 dias)</span>
+          <span class="section-title">Atividade (7 dias)</span>
         </div>
         <div class="bar-chart" id="bar-chart-container">
           ${last7Days.map(d => `
@@ -179,9 +179,9 @@ const DashboardPage = {
     return `
       <div class="card">
         <div class="section-header">
-          <span class="section-title">🗂️ Por Categoria</span>
+          <span class="section-title">Por Categoria</span>
         </div>
-        ${cats.length === 0 ? `<div class="empty-state" style="padding:30px"><div class="empty-icon">📋</div><h3>Sem tarefas</h3><p>Crie sua primeira tarefa</p></div>` : `
+        ${cats.length === 0 ? `<div class="empty-state" style="padding:30px"><div class="empty-icon"></div><h3>Sem tarefas</h3><p>Crie sua primeira tarefa</p></div>` : `
           <div style="display:flex;flex-direction:column;gap:12px">
             ${cats.map(([cat, count]) => `
               <div>

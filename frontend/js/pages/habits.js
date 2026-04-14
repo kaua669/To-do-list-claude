@@ -32,7 +32,7 @@ const HabitsPage = {
             <div style="font-family:var(--font-display);font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">${today}</div>
             <div style="font-family:var(--font-display);font-size:28px;font-weight:800;margin:6px 0">${completedToday} de ${total} hábitos</div>
             <div style="font-size:14px;color:var(--text-secondary)">
-              ${pct === 100 ? '🎉 Parabéns! Todos os hábitos concluídos!' : pct >= 50 ? '💪 Mais da metade! Continue assim!' : '🚀 Vamos lá! Você consegue!'}
+              ${pct === 100 ? ' Parabéns! Todos os hábitos concluídos!' : pct >= 50 ? ' Mais da metade! Continue assim!' : ' Vamos lá! Você consegue!'}
             </div>
           </div>
           <div style="text-align:center">
@@ -62,14 +62,14 @@ const HabitsPage = {
       <!-- STREAK HALL -->
       ${this.habits.filter(h => h.streak > 0).length > 0 ? `
         <div class="card" style="margin-top:24px">
-          <div class="section-title" style="margin-bottom:16px">🏆 Hall das Sequências</div>
+          <div class="section-title" style="margin-bottom:16px">Hall das Sequências</div>
           <div style="display:flex;flex-wrap:wrap;gap:12px">
             ${this.habits.filter(h => h.streak > 0).sort((a,b) => b.streak-a.streak).map(h => `
               <div style="display:flex;align-items:center;gap:8px;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 14px">
                 <span style="font-size:20px">${h.icon}</span>
                 <div>
                   <div style="font-size:13px;font-weight:600">${Utils.esc(h.title)}</div>
-                  <div style="font-size:12px;color:var(--accent-3)">🔥 ${h.streak} dias</div>
+                  <div style="font-size:12px;color:var(--accent-3)"> ${h.streak} dias</div>
                 </div>
               </div>`).join('')}
           </div>
@@ -87,7 +87,7 @@ const HabitsPage = {
           </div>
           <div class="habit-info">
             <div class="habit-title">${Utils.esc(h.title)}</div>
-            <div class="habit-streak">🔥 ${h.streak} dias seguidos</div>
+            <div class="habit-streak">${h.streak} dias seguidos</div>
           </div>
           <button onclick="HabitsPage.deleteHabit('${h.id}')"
             style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:14px;padding:4px">🗑️</button>
