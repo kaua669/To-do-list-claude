@@ -16,10 +16,10 @@ const DashboardPage = {
       content.innerHTML = `
         <!-- STAT CARDS -->
         <div class="dashboard-grid stagger">
-          ${this.statCard('Tarefas', 'Total de Tarefas', overview.totalTasks, '#6366f1', '99,102,241', `${overview.completionRate}% concluídas`)}
-          ${this.statCard('Tarefas concluídas', 'Concluídas', overview.completedTasks, '#06d6a0', '6,214,160', 'Parabéns!')}
-          ${this.statCard('Cronograma', 'Eventos Hoje', overview.todayEvents, '#f59e0b', '245,158,11', `${overview.totalEvents} no total`)}
-          ${this.statCard('Nível', 'Pontos', overview.points, '#f43f5e', '244,63,94', `${overview.streak} dias seguidos`)}
+          ${this.statCard('Total de Tarefas', overview.totalTasks, '#6366f1', '99,102,241', `${overview.completionRate}% concluídas`)}
+          ${this.statCard('Concluídas', overview.completedTasks, '#06d6a0', '6,214,160', 'Parabéns!')}
+          ${this.statCard('Eventos Hoje', overview.todayEvents, '#f59e0b', '245,158,11', `${overview.totalEvents} no total`)}
+          ${this.statCard('Pontos', overview.points, '#f43f5e', '244,63,94', `${overview.streak} dias seguidos`)}
         </div>
 
         <!-- HABITS & TASKS TODAY -->
